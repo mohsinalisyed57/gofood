@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { config } from "../Config";
 
 export default function MyOrder() {
   const [orderData, setorderData] = useState({});
   const fetchMyOrder = async () => {
-    await fetch("https://cute-red-kerchief.cyclic.app/api/auth/myOrderData", {
+    await fetch(`${config.Port}/api/auth/myOrderData`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

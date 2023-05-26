@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Delete from '@material-ui/icons/Delete'
 import { useCart, useDispatchCart } from '../components/ContextReducer';
+import { config } from '../Config';
 export default function Cart() {
   let data = useCart();
   let dispatch = useDispatchCart();
@@ -17,7 +18,7 @@ export default function Cart() {
   let totalPrice = data.reduce((total, food) => total + food.price, 0)
   const handleCheckOut = async () => {
     let userEmail = localStorage.getItem("userEmail");
-    let response = await fetch("https://cute-red-kerchief.cyclic.app/api/auth/orderData", {
+    let response = await fetch(`${config.Port}/api/auth/orderData`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

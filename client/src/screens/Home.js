@@ -3,12 +3,13 @@ import Card from "../components/Card";
 // import Carousel from '../components/Carousel'
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { config } from "../Config";
 export default function Home() {
   const [foodCat, setFoodCat] = useState([]);
   const [foodItems, setFoodItems] = useState([]);
   const [search, setSearch] = useState("");
   const loadFoodItems = async () => {
-    let response = await fetch("https://cute-red-kerchief.cyclic.app/api/auth/foodData", {
+    let response = await fetch(`${config.Port}/api/auth/foodData`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -142,7 +143,7 @@ export default function Home() {
                       return (
                         <div
                           key={filterItems.id}
-                          className="col-12 col-md-6 col-lg-3"
+                          className="col-12 col-md-6 col-lg-3 d-flex justify-content-center"
                         >
                           <Card
                             foodName={filterItems.name}
