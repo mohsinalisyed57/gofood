@@ -41,7 +41,7 @@ export default function Login() {
         <Navbar />
       </div>
       <div className='container'>
-        <form className='w-50 m-auto mt-5 border bg-dark border-success rounded' onSubmit={handleSubmit}>
+        <form className='.form-container mt-5 border bg-dark border-success rounded' onSubmit={handleSubmit}>
           <div className="m-3">
             <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
             <input type="email" className="form-control" name='email' value={credentials.email} onChange={onChange} aria-describedby="emailHelp" />
