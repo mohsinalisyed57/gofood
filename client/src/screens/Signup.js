@@ -2,64 +2,47 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Navbar from '../components/Navbar';
 import { config } from '../Config';
-export default function Signup() {
+import { useMutation } from 'react-query';
+import { signUpUser } from '../services/Auth';
+import axios from 'axios';
+ const  Signup =()=> {
   const [credentials, setCredentials] = useState({ name: "", email: "", password: "", geolocation: "" })
-  let [address, setAddress] = useState("");
-  let navigate = useNavigate()
-
+  const [address, setAddress] = useState("");
+  const navigate = useNavigate()
+  const mutation = useMutation(signUpUser);
   const handleClick = async (e) => {
     e.preventDefault();
-    let navLocation = () => {
+    const navLocation = () => {
       return new Promise((res, rej) => {
         navigator.geolocation.getCurrentPosition(res, rej);
       });
     }
-    let latlong = await navLocation().then(res => {
-      let latitude = res.coords.latitude;
-      let longitude = res.coords.longitude;
+    const latlong = await navLocation().then(res => {
+      const latitude = res.coords.latitude;
+      const longitude = res.coords.longitude;
       return [latitude, longitude]
     })
     // console.log(latlong)
-    let [lat, long] = latlong
-    console.log(lat, long)
-    const response = await fetch(`${config.Port}/api/auth/getlocation`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ latlong: { lat, long } })
-
+    const [lat, long] = latlong
+    const { data: { location } } = await axios.post(`${config.Port}/api/auth/getlocation`, {
+      latlong: { lat, long },
     });
-    const { location } = await response.json()
-    console.log(location);
     setAddress(location);
     setCredentials({ ...credentials, [e.target.name]: location })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${config.Port}/api/auth/users`, {
-      // credentials: 'include',
-      // Origin:"http://localhost:3000/login",
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password, location: credentials.geolocation })
 
-    });
-    const json = await response.json()
-    console.log(json);
-    if (json.success) {
-      //save the auth toke to local storage and redirect
-      localStorage.setItem('token', json.authToken)
-      navigate("/login")
-
+    try {
+      const { data } = await mutation.mutateAsync(credentials);
+        localStorage.setItem('token', data?.authToken);
+        navigate('/login');
+    } catch (error) {
+      console.error('An error occurred during user submission:', error);
+      // Handle error as needed
     }
-    else {
-      alert("Enter Valid Credentials")
-    }
-  }
+  };
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
@@ -101,3 +84,4 @@ export default function Signup() {
     </div>
   )
 }
+export default Signup

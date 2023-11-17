@@ -1,36 +1,29 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar';
 import { useNavigate, Link } from 'react-router-dom'
-import { config } from '../Config';
+import { useMutation } from 'react-query';
+import { loginUser } from '../services/Auth';
+
 export default function Login() {
   const [credentials, setCredentials] = useState({ email: "", password: "" })
-  let navigate = useNavigate()
+  const navigate = useNavigate()
+  const mutation = useMutation(loginUser);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${config.Port}/api/auth/login`, {
-      // credentials: 'include',
-      // Origin:"http://localhost:3000/login",
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email: credentials.email, password: credentials.password })
-
-    });
-    const json = await response.json()
-    console.log(json);
-    if (json.success) {
-      //save the auth toke to local storage and redirect
-      localStorage.setItem('userEmail', credentials.email)
-      localStorage.setItem('token', json.authToken)
-      navigate("/");
-
+    try {
+      const { data } = await mutation.mutateAsync({
+        email: credentials.email,
+        password: credentials.password,
+      });
+        localStorage.setItem('userEmail', credentials?.email);
+        localStorage.setItem('token', data?.authToken);
+        navigate('/');
+    } catch (error) {
+      console.error('An error occurred during login:', error);
     }
-    else {
-      alert("Enter Valid Credentials")
-    }
-  }
+  };
+
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })

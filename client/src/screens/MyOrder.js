@@ -1,29 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { config } from "../Config";
+import { useQuery } from "react-query";
+import { myOrderData } from "../services/order";
 
-export default function MyOrder() {
-  const [orderData, setorderData] = useState({});
-  const fetchMyOrder = async () => {
-    await fetch(`${config.Port}/api/auth/myOrderData`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: localStorage.getItem("userEmail"),
-      }),
-    }).then(async (res) => {
-      let response = await res.json();
-      await setorderData(response);
-
-    });
-  };
-  useEffect(() => {
-    fetchMyOrder();
-  }, []);
-
+const MyOrder=()=> {
+  const { data: orderData, isLoading, isError } = useQuery('myOrderData',myOrderData)
+  console.log(orderData)
   return (
     <div>
       <div>
@@ -31,7 +14,7 @@ export default function MyOrder() {
       </div>
       <div className="container" >
         <div className="row">
-          {orderData !== {} ? Array(orderData).map((data) => {
+          {!!orderData ? Array(orderData).map((data) => {
             return data.orderData
               ? data.orderData.order_data
                 .slice(0)
@@ -110,4 +93,4 @@ export default function MyOrder() {
     </div>
   );
 }
-
+export default MyOrder

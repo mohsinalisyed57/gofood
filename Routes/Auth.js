@@ -144,7 +144,6 @@ router.post('/foodData', async (req, res) => {
 
                 // Send the response with the data
                 res.send([global.foodData, global.foodCategory]);
-                console.log(JSON.stringify(global.foodData));
             }
         });
     } catch (error) {
