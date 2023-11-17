@@ -5,7 +5,6 @@ import { useDispatchCart, useCart } from './ContextReducer'
 // import { Dropdown, DropdownButton } from 'react-bootstrap';
 export default function Card(props) {
   let data = useCart();
-
   let navigate = useNavigate()
   const [qty, setQty] = useState(1)
   const [size, setSize] = useState("")
@@ -33,8 +32,7 @@ export default function Card(props) {
         break;
       }
     }
-    console.log(new Date())
-    if (food !== []) {
+    if (food.length > 0) {
       if (food.size === size) {
         await dispatch({ type: "UPDATE", id: foodItem._id, price: finalPrice, qty: qty })
         return
@@ -47,7 +45,7 @@ export default function Card(props) {
       return
     }
 
-    await dispatch({ type: "ADD", id: foodItem._id, name: foodItem.name, price: finalPrice, qty: qty, size: size })
+    await dispatch({ type: "ADD", id: foodItem._id, name: foodItem.name, price: finalPrice, qty: qty, size: size, img: props.ImgSrc })
 
 
     // setBtnEnable(true)
@@ -67,13 +65,13 @@ export default function Card(props) {
         <div className="card-body">
           <h5 className="card-title">{props.foodName}</h5>
           <div className='container w-100 p-0' style={{ height: "38px" }}>
-            <select className="m-2 h-100 w-20 bg-success text-black rounded" style={{ select: "#FF0000" }} onClick={handleClick} onChange={handleQty}>
+            <select className="m-0 h-100   text-black rounded" style={{ width: "40px" }} onClick={handleClick} onChange={handleQty}>
               {Array.from(Array(6), (e, i) => {
                 return (
                   <option key={i + 1} value={i + 1}>{i + 1}</option>)
               })}
             </select>
-            <select className="m-2 h-100 w-20 bg-success text-black rounded" style={{ select: "#FF0000" }} ref={priceRef} onClick={handleClick} onChange={handleOptions}>
+            <select className="m-2 h-100   text-black rounded" style={{ width:"80px" }} ref={priceRef} onClick={handleClick} onChange={handleOptions}>
               {priceOptions.map((i) => {
                 return <option key={i} value={i}>{i}</option>
               })}

@@ -14,10 +14,12 @@ import Login from './screens/Login';
 import Signup from './screens/Signup';
 import { CartProvider } from './components/ContextReducer';
 import MyOrder from './screens/MyOrder';
-
+import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
+    <QueryClientProvider client={queryClient}>
     <CartProvider>
       <Router>
         <div>
@@ -29,7 +31,8 @@ function App() {
           </Routes>
         </div>
       </Router>
-    </CartProvider>
+      </CartProvider>
+    </QueryClientProvider>
   );
 }
 
