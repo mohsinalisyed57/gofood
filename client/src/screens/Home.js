@@ -34,7 +34,7 @@ export default function Home() {
           className="carousel slide carousel-fade "
           data-bs-ride="carousel"
         >
-          <div className="carousel-inner " id="carousel">
+          <div className="carousel-inner " id="carousel"style={{maxHeight:"88vh"}}>
             <div className=" carousel-caption  " style={{ zIndex: "9" }}>
               <div className=" d-flex justify-content-center">
                 {" "}
@@ -114,7 +114,7 @@ export default function Home() {
       <div className="container">
         {" "}
         {/* boootstrap is mobile first */}
-        {foodCat !== []
+        {!!foodCat
           ? foodCat.map((data) => {
             return (
               // justify-content-center
@@ -130,7 +130,7 @@ export default function Home() {
                       "-webkit-linear-gradient(left,rgb(0, 255, 137),rgb(0, 0, 0))",
                   }}
                 />
-                {foodItems !== [] ? (
+                {!!foodItems ? (
                   foodItems
                     .filter(
                       (items) =>
