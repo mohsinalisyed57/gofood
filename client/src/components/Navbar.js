@@ -6,7 +6,7 @@ import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useCart } from './ContextReducer';
 import Modal from '../Modal';
-import Cart from '../screens/Cart';
+import Cart from '../screens/Cart/Cart';
 export default function Navbar(props) {
 
     const [cartView, setCartView] = useState(false)

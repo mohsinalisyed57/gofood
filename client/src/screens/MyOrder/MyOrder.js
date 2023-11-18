@@ -1,8 +1,8 @@
 import React from "react";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 import { useQuery } from "react-query";
-import { myOrderData } from "../services/order";
+import { myOrderData } from "../../services/order";
 
 const MyOrder=()=> {
   const { data: orderData, isLoading, isError } = useQuery('myOrderData',myOrderData)

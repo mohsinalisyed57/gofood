@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Card from "../components/Card";
+import Card from "../../components/Card";
 // import Carousel from '../components/Carousel'
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 import { useQuery } from "react-query";
-import { fetchFoodData } from "../services/Home";
+import { fetchFoodData } from "../../services/Home";
  const Home=()=> {
   const [search, setSearch] = useState("");
   const { data: foodData, isLoading } = useQuery("foodData", fetchFoodData);
