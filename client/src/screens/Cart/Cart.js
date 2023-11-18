@@ -1,8 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Delete from '@material-ui/icons/Delete'
-import { useCart, useDispatchCart } from '../components/ContextReducer';
-import { config } from '../Config';
+import { useCart, useDispatchCart } from '../../components/ContextReducer';
+import { config } from '../../Config';
 export default function Cart() {
   let data = useCart();
   let dispatch = useDispatchCart();
