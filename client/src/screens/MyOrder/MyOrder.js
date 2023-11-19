@@ -3,12 +3,16 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { useQuery } from "react-query";
 import { myOrderData } from "../../services/order";
+import { Helmet } from "react-helmet";
 
 const MyOrder=()=> {
   const { data: orderData, isLoading, isError } = useQuery('myOrderData',myOrderData)
   console.log(orderData)
   return (
     <div>
+      <Helmet>
+        <title>Ebuy | MyOrder</title>
+      </Helmet>
       <div>
         <Navbar />
       </div>

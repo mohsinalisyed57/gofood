@@ -22,14 +22,12 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <CartProvider>
           <Router>
-            <div>
               <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/signup" element={<Signup />} />
                 <Route exact path="/myorder" element={<MyOrder />} />
               </Routes>
-            </div>
           </Router>
         </CartProvider>
       </QueryClientProvider>

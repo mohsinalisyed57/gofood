@@ -8,9 +8,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "./type";
 import { errorToast, successToast } from "../../lib/Toast";
 import { ErrorMessage } from "../../Enum/ErrorMessage";
+import { Helmet } from "react-helmet";
 const Login = () => {
   const navigate = useNavigate();
   const mutation = useMutation(loginUser);
+
   const {
     register,
     handleSubmit,
@@ -18,23 +20,22 @@ const Login = () => {
   } = useForm({ resolver: zodResolver(loginSchema) });
   const onSubmit = async (data) => {
     try {
-      const { data: response, error: resError } = await mutation.mutateAsync({
+      const response = await mutation.mutateAsync({
         email: data.email,
         password: data.password,
       });
-
       localStorage.setItem("userEmail", data?.email);
       localStorage.setItem("token", response?.authToken);
-      if (resError) {
-        errorToast(resError);
-      } else {
+      localStorage.setItem("role", response?.role);
         successToast(ErrorMessage.LOGIN_SUCCESS);
-      }
-      navigate("/");
+        navigate("/");
+      
     } catch (error) {
       errorToast(ErrorMessage.LOGIN_ERROR);
     }
   };
+
+
   return (
     <div
       style={{
@@ -44,6 +45,9 @@ const Login = () => {
         backgroundSize: "cover",
       }}
     >
+      <Helmet>
+        <title>Ebuy | Login</title>
+      </Helmet>
       <div>
         <Navbar />
       </div>

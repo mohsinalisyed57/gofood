@@ -5,17 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node index.js",
-    "server":"nodemon index.js",
-    "client":"npm start --prefix client",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
     "dev": "concurrently \"npm start\" \"npm run client\""
-
   },
   "author": "Mohsin Ali Syed",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "express-validator": "^6.14.0",
     "json-stringify-safe": "^5.0.1",
