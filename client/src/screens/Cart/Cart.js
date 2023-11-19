@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import Delete from '@material-ui/icons/Delete'
 import { useCart, useDispatchCart } from '../../components/ContextReducer';
 import { config } from '../../Config';
-export default function Cart() {
-  let data = useCart();
-  let dispatch = useDispatchCart();
-  let navigate = useNavigate()
+import useUserAuthInfo from '../../hooks/useUserAuthInfo';
+const Cart=()=> {
+ const data = useCart();
+ const dispatch = useDispatchCart();
+  const navigate = useNavigate()
+  const {userEmail}=useUserAuthInfo()
   if (data.length === 0) {
     return (
       <div>
@@ -15,10 +17,9 @@ export default function Cart() {
     )
   }
 
-  let totalPrice = data.reduce((total, food) => total + food.price, 0)
+ const totalPrice = data.reduce((total, food) => total + food.price, 0)
   const handleCheckOut = async () => {
-    let userEmail = localStorage.getItem("userEmail");
-    let response = await fetch(`${config.Port}/api/auth/orderData`, {
+   const response = await fetch(`${config.Port}/api/auth/orderData`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -29,10 +30,8 @@ export default function Cart() {
         order_date: new Date().toDateString()
       })
     });
-    console.log("JSON RESPONSE:::::", response.status)
     if (response.status === 200) {
       dispatch({ type: "DROP" })
-      // localStorage.setItem("TotalPrice",totalPrice )
       navigate("/myorder")
     }
 
@@ -75,3 +74,4 @@ export default function Cart() {
     </div>
   )
 }
+export default  Cart

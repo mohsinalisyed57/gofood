@@ -5,11 +5,15 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { useQuery } from "react-query";
 import { fetchFoodData } from "../../services/Home";
+import { Helmet } from "react-helmet";
  const Home=()=> {
   const [search, setSearch] = useState("");
   const { data: foodData, isLoading } = useQuery("foodData", fetchFoodData);
   return (
     <div>
+      <Helmet>
+        <title>Ebuy | Home</title>
+      </Helmet>
       <div>
         <Navbar />
       </div>

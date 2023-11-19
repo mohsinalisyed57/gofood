@@ -13,7 +13,7 @@ export default function Card(props) {
   let priceOptions = Object.keys(options);
   let foodItem = props.item;
   const dispatch = useDispatchCart();
-  const handleClick = () => {
+  const handleLogin = () => {
     if (!localStorage.getItem("token")) {
       navigate("/login")
     }
@@ -25,6 +25,7 @@ export default function Card(props) {
     setSize(e.target.value);
   }
   const handleAddToCart = async () => {
+    handleLogin()
     let food = []
     for (const item of data) {
       if (item.id === foodItem._id) {
@@ -65,13 +66,13 @@ export default function Card(props) {
         <div className="card-body">
           <h5 className="card-title">{props.foodName}</h5>
           <div className='container w-100 p-0' style={{ height: "38px" }}>
-            <select className="m-0 h-100   text-black rounded" style={{ width: "40px" }} onClick={handleClick} onChange={handleQty}>
+            <select className="m-0 h-100   text-black rounded" style={{ width: "40px" }} onClick={handleLogin} onChange={handleQty}>
               {Array.from(Array(6), (e, i) => {
                 return (
                   <option key={i + 1} value={i + 1}>{i + 1}</option>)
               })}
             </select>
-            <select className="m-2 h-100   text-black rounded" style={{ width:"80px" }} ref={priceRef} onClick={handleClick} onChange={handleOptions}>
+            <select className="m-2 h-100   text-black rounded" style={{ width:"80px" }} ref={priceRef} onClick={handleLogin} onChange={handleOptions}>
               {priceOptions.map((i) => {
                 return <option key={i} value={i}>{i}</option>
               })}

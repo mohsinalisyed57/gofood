@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { signUpSchema } from './type';
 import { errorToast, successToast } from '../../lib/Toast';
 import { ErrorMessage } from '../../Enum/ErrorMessage';
+import { Helmet } from 'react-helmet';
 
 const Signup = () => {
   const { handleSubmit, setValue, register,clearErrors, formState: { errors } } = useForm({resolver: zodResolver(signUpSchema) });
@@ -35,14 +36,15 @@ const Signup = () => {
   };
   const onSubmit = async (data) => {
     try {
-      const { data: response ,error:resError } = await mutation.mutateAsync(data);
+      const response = await mutation.mutateAsync(data);
       localStorage.setItem('token', response?.authToken);
-      if (resError) {
-        errorToast(resError)
+      if (response.error) {
+        errorToast(response.error)
       } else {
         successToast(ErrorMessage.SIGNUP_SUCCESS)
+        navigate('/login');
       } 
-      navigate('/login');
+   
     } catch (error) {
        console.log(error)
     }
@@ -50,6 +52,9 @@ const Signup = () => {
 
   return (
     <div style={{ backgroundImage: 'url("https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")', backgroundSize: 'cover', height: '100vh' }}>
+      <Helmet>
+        <title>Ebuy | Signup</title>
+      </Helmet>
       <div>
         <Navbar />
       </div>
