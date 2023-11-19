@@ -6,11 +6,14 @@ import Navbar from "../../components/Navbar";
 import { useQuery } from "react-query";
 import { fetchFoodData } from "../../services/Home";
 import { Helmet } from "react-helmet";
+import useUserAuthInfo from "../../hooks/useUserAuthInfo";
+import AdminDashboard from "../../Admin/Dashboard/AdminDashboard";
  const Home=()=> {
   const [search, setSearch] = useState("");
-  const { data: foodData, isLoading } = useQuery("foodData", fetchFoodData);
+   const { data: foodData, isLoading } = useQuery("foodData", fetchFoodData);
+   const { role } = useUserAuthInfo()
   return (
-    <div>
+    role === 'admin' ? <AdminDashboard/> : <div>
       <Helmet>
         <title>Ebuy | Home</title>
       </Helmet>
@@ -23,7 +26,7 @@ import { Helmet } from "react-helmet";
           className="carousel slide carousel-fade "
           data-bs-ride="carousel"
         >
-          <div className="carousel-inner " id="carousel"style={{maxHeight:"88vh"}}>
+          <div className="carousel-inner " id="carousel" style={{ maxHeight: "88vh" }}>
             <div className=" carousel-caption  " style={{ zIndex: "9" }}>
               <div className=" d-flex justify-content-center">
                 <input

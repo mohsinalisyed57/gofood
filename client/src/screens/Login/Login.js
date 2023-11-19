@@ -26,6 +26,7 @@ const Login = () => {
       });
       localStorage.setItem("userEmail", data?.email);
       localStorage.setItem("token", response?.authToken);
+      localStorage.setItem("role", response?.role);
         successToast(ErrorMessage.LOGIN_SUCCESS);
         navigate("/");
       
