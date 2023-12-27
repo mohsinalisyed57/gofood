@@ -14,15 +14,4 @@ export const addProduct = async (product) => {
         // Handle error, e.g., show an error message
     }
 };
-export const viewProduct = async () => {
-    try {
-        const response = await axios.get(`${config.Port}/api/products/view`);
-        console.log('Product added:', response.data);
-        // Handle success, e.g., show a success message or redirect
-        return response
-       
-    } catch (error) {
-        console.error('Error adding product:', error);
-        // Handle error, e.g., show an error message
-    }
-};
+

@@ -1,11 +1,9 @@
 // Product.jsx
 import React from 'react';
 import ProductTable from './ProductTable';
-import { viewProduct } from '../../../services/Product';
 
 const ViewProduct = () => {
   // Example data, replace with your actual View data
-  viewProduct()
   const products = [
     { id: 1, name: 'Product 1', price: 19.99, totalItems: 50 },
     { id: 2, name: 'Product 2', price: 29.99, totalItems: 30 },
