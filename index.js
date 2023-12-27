@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/auth', require('./Routes/Auth'));
-
+app.use('/api/products', require('./Routes/productRoutes'));
 app.listen(port, () => {
   console.log(`Backend is listening on http://localhost:${port}`)
 })

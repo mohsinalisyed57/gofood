@@ -5,6 +5,7 @@ const ProductForm = (props) => {
     const { register, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
+        props.function(data)
         console.log(data); // You can replace this with your logic to add the product
     };
 
@@ -12,19 +13,13 @@ const ProductForm = (props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <br />
             <label>
-               Category
+             Image:
             </label>
             <br />
-            <input type="text" {...register('category')} />
+            <input type="text" {...register('image_url')} />
             <br />
             <label>
-                Image:
-            </label>
-            <br />
-            <input type="text" {...register('image')} />
-            <br />
-            <label>
-                Name:
+             Name:
             </label>
             <br />
             <input type="text" {...register('name')} />
@@ -35,12 +30,12 @@ const ProductForm = (props) => {
             <br />
             <input type="number" {...register('price')} />
             <br />
-            <label>
+            {/* <label>
                 Total Items:
             </label>
             <br />
             <input type="number" {...register('totalItems')} />
-            <br />
+            <br /> */}
             <br />
             <button type="submit">{props.btn} Product</button>
         </form>

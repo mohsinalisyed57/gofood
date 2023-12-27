@@ -9,4 +9,6 @@ export const ErrorMessage = {
   NAME_REQUIRED: "Name is required",
   NAME_MAX_LENGTH: "Name should be less than 15 characters.",
   ADDRESS_REQUIRED: "Address is required",
+  PRODUCT_ADDED: 'Product added successfully',
+  PRODUCT_NOT_ADDED:"Product is not added",
 };
