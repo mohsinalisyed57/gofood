@@ -15,6 +15,12 @@ import Signup from './screens/SignUp/Signup.js';
 import MyOrder from './screens/MyOrder/MyOrder.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminDashboard from './Admin/Dashboard/AdminDashboard.js';
+import Dashboard from './Admin/Dashboard/Component/Dashboard.js';
+import AddProduct from './Admin/Dashboard/Product/AddProduct.js';
+import UpdateProduct from './Admin/Dashboard/Product/EditProduct.js';
+import ViewProduct from './Admin/Dashboard/Product/ViewProduct.js';
+import RemoveProduct from './Admin/Dashboard/Product/RemoveProduct.js';
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -23,10 +29,19 @@ function App() {
         <CartProvider>
           <Router>
               <Routes>
-                <Route exact path="/" element={<Home />} />
+              <Route exact path="/" element={<Home />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/signup" element={<Signup />} />
                 <Route exact path="/myorder" element={<MyOrder />} />
+              <Route path="/admin/*" element={<AdminDashboard />}>
+                <Route index element={<Dashboard />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="add-product" element={<AddProduct />} />
+                <Route path="update-product" element={<UpdateProduct />} />
+                <Route path="view-product" element={<ViewProduct/>} />
+                <Route path="remove-product" element={<RemoveProduct/>} />
+                {/* Add more nested routes as needed */}
+              </Route>
               </Routes>
           </Router>
         </CartProvider>

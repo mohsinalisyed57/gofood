@@ -12,7 +12,6 @@ import { Helmet } from "react-helmet";
 const Login = () => {
   const navigate = useNavigate();
   const mutation = useMutation(loginUser);
-
   const {
     register,
     handleSubmit,
@@ -28,7 +27,9 @@ const Login = () => {
       localStorage.setItem("token", response?.authToken);
       localStorage.setItem("role", response?.role);
         successToast(ErrorMessage.LOGIN_SUCCESS);
-        navigate("/");
+      const role = response?.role;
+      // Use role to determine where to navigate
+      role === 'admin' ? navigate("/admin") : navigate("/");
       
     } catch (error) {
       errorToast(ErrorMessage.LOGIN_ERROR);
